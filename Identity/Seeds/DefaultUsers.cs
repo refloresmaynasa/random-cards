@@ -7,7 +7,7 @@ namespace Identity.Seeds
 {
     public static class DefaultUsers
     {
-        public static async Task SeedAsync(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedAsync(UserManager<AppUser> userManager)
         {
             await AddAdminUser(userManager);
             await AddStandardUser(userManager);

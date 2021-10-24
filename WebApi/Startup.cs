@@ -1,3 +1,5 @@
+using Application;
+using Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,8 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationLayer();
+            services.AddIdentityService(Configuration);
             services.AddControllers();
             services.AddApiVersioningExtension();
             services.AddSwaggerGen(c =>
@@ -39,7 +43,7 @@ namespace WebApi
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
