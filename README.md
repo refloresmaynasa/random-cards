@@ -28,8 +28,21 @@ Practice repository for a Random Cards application in .Net Core
 * Execute migration on **Identity** project (Package Manager Console)
 
   ```powershell
-  Add-Migration InitialMigration
-  Update-Database
+  Add-Migration InitialMigration -Context IdentityContext
+  ```
+
+  ```powershell
+  Update-Database -Context IdentityContext
+  ```
+
+* Execute migration on **Persistence** project (Package Manager Console)
+
+  ```powershell
+  Add-Migration InitialMigration -Context CatalogDbContext
+  ```
+
+  ```powershell
+  Update-Database -Context CatalogDbContext
   ```
 
 * 
