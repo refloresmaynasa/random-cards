@@ -6,8 +6,10 @@ Practice repository for a Random Cards application in .Net Core
 
 - .NET 5
 - Entity Framework Core
+- Ardalis.Specification (Entity Framework - repository)
 - MediatR
 - FluentValidation
+- Automapper
 - PostgreSQL
 - JWT (authentication)
 - Docker
@@ -46,4 +48,19 @@ Practice repository for a Random Cards application in .Net Core
   ```
 
 * 
+
+## Start Application
+
+Set WebApi as Startup Project, and go into WebApi folder.
+
+```powershell
+dotnet run
+```
+
+Login (as administrator) on ***/api/v1/Account/authenticate***:
+
+* email: userAdmin@mail.com
+* password: Password999!
+
+
 

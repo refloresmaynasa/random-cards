@@ -3,7 +3,6 @@ using Domain.Common;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,11 +11,13 @@ namespace Persistence.Contexts
     public class CatalogDbContext : DbContext
     {
         private readonly IUtilityService _utilityService;
+        private readonly ISessionService _sessionService;
 
-        public CatalogDbContext(DbContextOptions<CatalogDbContext> options, IUtilityService utilityService) : base(options)
+        public CatalogDbContext(DbContextOptions<CatalogDbContext> options, IUtilityService utilityService, ISessionService sessionService) : base(options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             _utilityService = utilityService;
+            _sessionService = sessionService;
         }
 
         public DbSet<Catalog> Catalogs { get; set; }
@@ -29,11 +30,11 @@ namespace Persistence.Contexts
                 {
                     case EntityState.Modified:
                         entry.Entity.LastModified = _utilityService.NowUtc;
-                        entry.Entity.CreatedBy = ClaimsPrincipal.Current.Identity.Name;
+                        entry.Entity.LastModifiedBy = _sessionService.CurrentUserName;
                         break;
                     case EntityState.Added:
                         entry.Entity.Created = _utilityService.NowUtc;
-                        entry.Entity.CreatedBy = ClaimsPrincipal.Current.Identity.Name;
+                        entry.Entity.CreatedBy = _sessionService.CurrentUserName;
                         break;
                 }
             }

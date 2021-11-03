@@ -33,12 +33,14 @@ namespace Identity
 
             #region Add Service
             services.AddTransient<IIdentityService, IdentityService>();
+            services.AddScoped<ISessionService, SessionService>();
             #endregion
 
             services.Configure<JWTSetting>(configuration.GetSection("JWTSetting"));
 
             services.AddAuthentication(options =>
             {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
