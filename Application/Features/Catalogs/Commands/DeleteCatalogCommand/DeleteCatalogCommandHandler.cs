@@ -10,9 +10,9 @@ namespace Application.Features.Catalogs.Commands.DeleteCatalogCommand
 {
     public class DeleteCatalogCommandHandler : IRequestHandler<DeleteCatalogCommand, Response<int>>
     {
-        private readonly IRepositoryAsync<Catalog> _repositoryAsync;
+        private readonly ISqlRepositoryAsync<Catalog> _repositoryAsync;
 
-        public DeleteCatalogCommandHandler(IRepositoryAsync<Catalog> repositoryAsync)
+        public DeleteCatalogCommandHandler(ISqlRepositoryAsync<Catalog> repositoryAsync)
         {
             _repositoryAsync = repositoryAsync;
         }

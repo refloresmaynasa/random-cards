@@ -10,9 +10,9 @@ namespace Application.Features.Catalogs.Commands.UpdateCatalogCommand
 {
     public class UpdateCatalogCommandHandler : IRequestHandler<UpdateCatalogCommand, Response<int>>
     {
-        private readonly IRepositoryAsync<Catalog> _repositoryAsync;
+        private readonly ISqlRepositoryAsync<Catalog> _repositoryAsync;
 
-        public UpdateCatalogCommandHandler(IRepositoryAsync<Catalog> repositoryAsync)
+        public UpdateCatalogCommandHandler(ISqlRepositoryAsync<Catalog> repositoryAsync)
         {
             _repositoryAsync = repositoryAsync;
         }

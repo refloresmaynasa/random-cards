@@ -9,15 +9,33 @@ namespace Persistence
 {
     public static class ServiceExtensions
     {
-        public static void AddPersistenceInfraestructure(this IServiceCollection services, IConfiguration configuration)
+        public static async void AddPersistenceInfraestructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<CatalogDbContext>(options => options.UseNpgsql(
-                configuration.GetConnectionString("CatalogConnection"),
-                b => b.MigrationsAssembly(typeof(CatalogDbContext).Assembly.FullName)));
+            services.AddDbContext<SqlDbContext>(options => options.UseNpgsql(
+                configuration.GetConnectionString("SqlConnection"),
+                b => b.MigrationsAssembly(typeof(SqlDbContext).Assembly.FullName)));
+
+            var cosmosOptionsBuilder = new DbContextOptionsBuilder<NoSqlDbContext>()
+                .UseCosmos(
+                configuration.GetValue<string>("CosmosDbSettings:AccountEndpoint"),
+                configuration.GetValue<string>("CosmosDbSettings:AccountKey"),
+                configuration.GetValue<string>("CosmosDbSettings:DatabaseName"));
+
+            //services.AddDbContext<NoSqlDbContext>(options => options = cosmosOptionsBuilder);
+            services.AddDbContext<NoSqlDbContext>(options =>
+            options.UseCosmos(
+                configuration.GetValue<string>("CosmosDbSettings:AccountEndpoint"),
+                configuration.GetValue<string>("CosmosDbSettings:AccountKey"),
+                configuration.GetValue<string>("CosmosDbSettings:DatabaseName"))
+            );
+
 
             #region Repositories
-            services.AddTransient(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
+            services.AddTransient(typeof(ISqlRepositoryAsync<>), typeof(PostgreSqlRepositoryAsync<>));
+            services.AddTransient(typeof(INoSqlRepositoryAsync<>), typeof(CosmosRepositoryAsync<>));
             #endregion
+
+            await NoSqlDbContext.CheckDatabaseAsync(cosmosOptionsBuilder.Options);
         }
     }
 }

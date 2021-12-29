@@ -17,6 +17,10 @@ Practice repository for a Random Cards application in .Net Core
 
 ## Initial configurations
 
+### Install Cosmos DB emulator 
+
+* https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator?tabs=ssl-netstd21
+
 ### Create the databases
 
 * Start the Database
@@ -40,11 +44,11 @@ Practice repository for a Random Cards application in .Net Core
 * Execute migration on **Persistence** project (Package Manager Console)
 
   ```powershell
-  Add-Migration InitialMigration -Context CatalogDbContext
+  Add-Migration InitialMigration -Context SqlDbContext
   ```
 
   ```powershell
-  Update-Database -Context CatalogDbContext
+  Update-Database -Context SqlDbContext
   ```
 
 * 

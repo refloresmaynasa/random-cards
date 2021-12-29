@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Persistence.Contexts
 {
-    public class CatalogDbContext : DbContext
+    public class SqlDbContext : DbContext
     {
         private readonly IUtilityService _utilityService;
         private readonly ISessionService _sessionService;
 
-        public CatalogDbContext(DbContextOptions<CatalogDbContext> options, IUtilityService utilityService, ISessionService sessionService) : base(options)
+        public SqlDbContext(DbContextOptions<SqlDbContext> options, IUtilityService utilityService, ISessionService sessionService) : base(options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             _utilityService = utilityService;

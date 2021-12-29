@@ -12,10 +12,10 @@ namespace Application.Features.Catalogs.Queries.GetCatalogById
 {
     public class GetCatalogByIdQueryHandler : IRequestHandler<GetCatalogByIdQuery, Response<CatalogDto>>
     {
-        private readonly IRepositoryAsync<Catalog> _repositoryAsync;
+        private readonly ISqlRepositoryAsync<Catalog> _repositoryAsync;
         private readonly IMapper _mapper;
 
-        public GetCatalogByIdQueryHandler(IRepositoryAsync<Catalog> repositoryAsync, IMapper mapper)
+        public GetCatalogByIdQueryHandler(ISqlRepositoryAsync<Catalog> repositoryAsync, IMapper mapper)
         {
             _repositoryAsync = repositoryAsync;
             _mapper = mapper;

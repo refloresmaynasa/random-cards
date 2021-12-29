@@ -10,10 +10,10 @@ namespace Application.Features.Catalogs.Commands.CreateCatalogCommand
 {
     public class CreateCatalogCommandHandler : IRequestHandler<CreateCatalogCommand, Response<int>>
     {
-        private readonly IRepositoryAsync<Catalog> _repositoryAsync;
+        private readonly ISqlRepositoryAsync<Catalog> _repositoryAsync;
         private readonly IMapper _mapper;
         private readonly ISessionService _sessionService;
-        public CreateCatalogCommandHandler(IRepositoryAsync<Catalog> repositoryAsync, IMapper mapper, ISessionService sessionService)
+        public CreateCatalogCommandHandler(ISqlRepositoryAsync<Catalog> repositoryAsync, IMapper mapper, ISessionService sessionService)
         {
             _repositoryAsync = repositoryAsync;
             _mapper = mapper;
